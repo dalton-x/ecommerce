@@ -20,6 +20,9 @@ Route::get('/detail/{id}', [ProductController::class, "detail"]);
 Route::get('/product/create', [ProductController::class,"createForm"]);
 Route::post('/product/create', [ProductController::class, "postForm"]);
 
+Route::get('/product/update/{id}', [ProductController::class,"updateForm"]);
+Route::put('/product/update/{id}', [ProductController::class, "postUpdateForm"]);
+
 
 Route::get('/add-to-cart/{id}', [ProductController::class, "addToCart"]);
 Route::get('/cart',[ProductController::class, "viewCart"]);
