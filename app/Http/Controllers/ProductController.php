@@ -36,14 +36,23 @@ class ProductController extends Controller
         // dd($request->all());
         // Récupere uniquement l'input selectionné
         // dd($request->input('name'));
-        $name = $request->input('name');
-        $description = $request->input('description');
-        $price = $request->input('price');
-        $vat = $request->input('vat');
-        $image = "coucou.png";
-        $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image]);
-        $product->save();
-        return "Nouveau produit enregistré";
+
+        // Vérification si le fichier image est bien présent
+        if ($request->hasFile('image')) {
+            //  Déplacement de l'image dans le dossier public/product
+            $request->file('image')->store('product');
+            // changement du nom de l'image par un hash unique
+            $image = $request->image->hashName();
+            $name = $request->input('name');
+            $description = $request->input('description');
+            $price = $request->input('price');
+            $vat = $request->input('vat');
+            $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image]);
+            $product->save();
+            return "Nouveau produit enregistré";
+        }else{
+            return "error";
+        }
     }
 
     public function updateForm($id){
