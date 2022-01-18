@@ -26,3 +26,9 @@ Route::put('/product/update/{id}', [ProductController::class, "postUpdateForm"])
 
 Route::get('/add-to-cart/{id}', [ProductController::class, "addToCart"]);
 Route::get('/cart',[ProductController::class, "viewCart"]);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
