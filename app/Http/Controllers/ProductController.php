@@ -6,8 +6,8 @@ use App\Http\Requests\ProductRequest;
 use App\Libs\Common;
 use App\Models\Product;
 use App\Models\ProductManager;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -21,8 +21,10 @@ class ProductController extends Controller
     public function detail($id)
     {
         $product = Product::find($id);
+        $user_id = Auth::check()?Auth::user()->id:null;
         return view("product.detail")
-            ->with("product", $product);
+        ->with("product", $product)
+        ->with("user_id", $user_id);
     }
 
     public function createForm()
@@ -47,7 +49,8 @@ class ProductController extends Controller
             $description = $request->input('description');
             $price = $request->input('price');
             $vat = $request->input('vat');
-            $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image]);
+            $user_id = Auth::user()->id;
+            $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image, 'user_id' => $user_id]);
             $product->save();
             return redirect("/");
         }else{

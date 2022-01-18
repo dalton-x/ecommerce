@@ -12,6 +12,9 @@
                     <div class="font-bold">{{ \App\Libs\Common::withVAT($product->price,$product->vat) }} €</div>
                 </div>
                 <p class="text-justify flex-grow">{{$product->description}}</p>
+                @if ($product->user_id == $user_id)
+                    <a href="../product/update/{{ $product->id }}" class="bg-blue-700 text-white px-4 py-1 mt-4 inline-block w-full text-center rounded-sm text-lg">Update du produit</a>
+                @endif
                 <a class="bg-blue-700 text-white px-4 py-1 mt-4 inline-block w-full text-center rounded-sm text-lg" href="{{url('/')}}/add-to-cart/{{$product->id}}">Ajouter au panier</a>
             </div>
         </div>

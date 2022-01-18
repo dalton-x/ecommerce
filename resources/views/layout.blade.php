@@ -14,6 +14,9 @@
     <nav>
         <ul>
             <li>
+                <a href="{{url('/')}}/dashboard"><span class="">Dashboard</span></a>
+            </li>
+            <li>
                 <a href="{{url('/')}}/cart"><i class="fas fa-shopping-cart"></i> <span class="text-2xl">{{ count(Session::get('cart',[])) }}</span></a>
             </li>
         </ul>
