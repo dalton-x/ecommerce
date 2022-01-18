@@ -39,17 +39,17 @@ class ProductController extends Controller
 
         // Vérification si le fichier image est bien présent
         if ($request->hasFile('image')) {
-            //  Déplacement de l'image dans le dossier public/product
-            $request->file('image')->store('product');
             // changement du nom de l'image par un hash unique
             $image = $request->image->hashName();
+            //  Déplacement de l'image dans le dossier public/product
+            $request->file('image')->move(public_path('images'),$image);
             $name = $request->input('name');
             $description = $request->input('description');
             $price = $request->input('price');
             $vat = $request->input('vat');
             $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image]);
             $product->save();
-            return "Nouveau produit enregistré";
+            return "<div>Nouveau produit enregistré <br> <a href='/'>Retour à la page home </a></div>";
         }else{
             return "error";
         }
@@ -64,18 +64,38 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        $name = $request->input('name');
-        $description = $request->input('description');
-        $price = $request->input('price');
-        $vat = $request->input('vat');
-        $image = "coucou.png";
-        $product->name = $name;
-        $product->description = $description;
-        $product->price = $price;
-        $product->vat = $vat;
-        $product->image = $image;
-        $product->save();
-        return "Produit ".$name." a été mis à jour";
+        if ($request->hasFile('image')) {
+            $name = $request->input('name');
+            $description = $request->input('description');
+            $price = $request->input('price');
+            $vat = $request->input('vat');
+            // get old_name to delete
+            $old_image = $product->image;
+            // dd(public_path("images\\".$old_image));
+            // dd(public_path("images")."\\".$old_image);
+            unlink(public_path("images")."\\".$old_image);
+            // Add new image
+            $image = $request->image->hashName();
+            $request->file('image')->move(public_path('images'),$image);
+            $product->name = $name;
+            $product->description = $description;
+            $product->price = $price;
+            $product->vat = $vat;
+            $product->image = $image;
+            $product->save();
+            return "Produit ".$name." a été mis à jour<br> <a href='/'>Retour à la page home </a>";
+        }else{
+            $name = $request->input('name');
+            $description = $request->input('description');
+            $price = $request->input('price');
+            $vat = $request->input('vat');
+            $product->name = $name;
+            $product->description = $description;
+            $product->price = $price;
+            $product->vat = $vat;
+            $product->save();
+            return "Produit ".$name." a été mis à jour<br> <a href='/'>Retour à la page home </a>";
+        }
 
     }
 
