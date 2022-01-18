@@ -49,7 +49,7 @@ class ProductController extends Controller
             $vat = $request->input('vat');
             $product = Product::create(['name' => $name, 'description' => $description, 'price' => $price, 'vat' => $vat, 'image' => $image]);
             $product->save();
-            return "<div>Nouveau produit enregistré <br> <a href='/'>Retour à la page home </a></div>";
+            return redirect("/");
         }else{
             return "error";
         }
@@ -57,7 +57,11 @@ class ProductController extends Controller
 
     public function updateForm($id){
         $product = Product::find($id);
-        return view("product.update")->with('product',$product);
+        if ($product != null) {
+            return view("product.update")->with('product',$product);
+        }else{
+            return redirect("/");
+        }
     }
 
     public function postUpdateForm($id,ProductRequest $request){
@@ -83,7 +87,7 @@ class ProductController extends Controller
             $product->vat = $vat;
             $product->image = $image;
             $product->save();
-            return "Produit ".$name." a été mis à jour<br> <a href='/'>Retour à la page home </a>";
+            return redirect("/");
         }else{
             $name = $request->input('name');
             $description = $request->input('description');
@@ -94,9 +98,8 @@ class ProductController extends Controller
             $product->price = $price;
             $product->vat = $vat;
             $product->save();
-            return "Produit ".$name." a été mis à jour<br> <a href='/'>Retour à la page home </a>";
+            return redirect("/");
         }
-
     }
 
     public function addToCart(Request $request, $id)
