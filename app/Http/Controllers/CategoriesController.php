@@ -10,6 +10,6 @@ class CategoriesController extends Controller
     public function getProductByCategory($id){
         $category = Category::find($id);
         $products = $category->products;
-        return view('products.category')->with('products',$products);
+        return view('product.category')->with('products',$products);
     }
 }

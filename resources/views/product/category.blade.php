@@ -2,14 +2,20 @@
 
 @section('main')
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            @foreach ($products as $product)
-                {{ $product->name }}
-            @endforeach
+    <div id="products" class="flex flex-wrap text-">
+        @foreach($products as $product)
+        <div class="w-full p-3 md:w-1/2 lg:w-1/3">
+            <div class="border border-gray-300 rounded product">
+                <img class="object-cover w-full h-64" src="{{url('/')}}/images/{{$product->image}}" alt="">
+                <div class="flex justify-between p-2 text-lg">
+                    <div>{{$product->name}}</div>
+                    <div class="font-bold">{{ \App\Libs\Common::withVAT($product->price,$product->vat) }}€</div>
+                </div>
+                <a class="inline-block w-full px-4 py-1 text-lg text-center text-white bg-blue-700 rounded-sm" href="{{url('/')}}/detail/{{$product->id}}">Voir</a>
+            </div>
         </div>
+        @endforeach
+
     </div>
-</div>
 
 @endsection
