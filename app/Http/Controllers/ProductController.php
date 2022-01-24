@@ -14,9 +14,9 @@ class ProductController extends Controller
     public function viewAll()
     {
         $products = Product::get();
-        return view("product.products")
-            ->with("products", $products);
+        return view("product.products")->with("products", $products);
     }
+
 
     public function detail($id)
     {

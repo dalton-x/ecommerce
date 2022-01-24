@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProductController::class, "viewAll"])->name('home');
+Route::get('/',[ProductController::class, "viewAll"])->name('home');
 Route::get('/detail/{id}', [ProductController::class, "detail"]);
 
 Route::get('/product/create', [ProductController::class,"createForm"])->middleware('admin')->name('create');
@@ -26,6 +27,9 @@ Route::put('/product/update/{id}', [ProductController::class, "postUpdateForm"])
 
 Route::get('/add-to-cart/{id}', [ProductController::class, "addToCart"]);
 Route::get('/cart',[ProductController::class, "viewCart"]);
+
+
+Route::get('/category/{id}',[CategoriesController::class, "getProductByCategory"]);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -3,7 +3,6 @@
 @section('main')
 
     <div id="products" class="flex flex-wrap text-">
-
         @foreach($products as $product)
         <div class="w-full p-3 md:w-1/2 lg:w-1/3">
             <div class="border border-gray-300 rounded product">

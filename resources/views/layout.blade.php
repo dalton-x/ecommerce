@@ -11,6 +11,9 @@
 <body class="flex flex-col justify-between h-screen">
 <header class="flex justify-between p-4 text-xl text-white bg-blue-900">
     <h1><a href="/">LA BOUTIQUE</a></h1>
+    @foreach ($categories as $category)
+        <a href="category/{{ $category->id }}">{{ $category->name }}</a>
+    @endforeach
     <nav>
         <ul>
             <li>
