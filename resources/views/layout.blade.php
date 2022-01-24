@@ -26,7 +26,7 @@
 @yield("main")
 
 <footer class="p-5 text-lg text-center text-white bg-gray-700">
-    Copyright &copy; 202x Votre Nom
+    Copyright &copy; 2022 Thomas Girard
 </footer>
 </body>
 </html>

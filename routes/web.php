@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProductController::class, "viewAll"]);
+Route::get('/', [ProductController::class, "viewAll"])->name('home');
 Route::get('/detail/{id}', [ProductController::class, "detail"]);
 
-Route::get('/product/create', [ProductController::class,"createForm"]);
-Route::post('/product/create', [ProductController::class, "postForm"]);
+Route::get('/product/create', [ProductController::class,"createForm"])->middleware('admin')->name('create');
+Route::post('/product/create', [ProductController::class, "postForm"])->middleware('admin');
 
-Route::get('/product/update/{id}', [ProductController::class,"updateForm"]);
-Route::put('/product/update/{id}', [ProductController::class, "postUpdateForm"]);
+Route::get('/product/update/{id}', [ProductController::class,"updateForm"])->middleware('admin');
+Route::put('/product/update/{id}', [ProductController::class, "postUpdateForm"])->middleware('admin');
 
 
 Route::get('/add-to-cart/{id}', [ProductController::class, "addToCart"]);

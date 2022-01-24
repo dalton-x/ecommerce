@@ -1,7 +1,7 @@
-@extends('layout')
+@extends('dashboard')
 
-@section('main')
-    <main class="container mx-auto">
+@section('dashboard')
+    <main class="container mx-auto mt-5">
         <h1 class="mb-3 text-2xl font-bold">Créer un nouveau produit</h1>
 
         <form class="flex flex-wrap" action="{{ url('/product/create') }}" method="POST"  enctype="multipart/form-data">
